@@ -5,7 +5,6 @@ import 'package:gst_suvidha/models/gst_response_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:gst_suvidha/gst_profile.dart';
-import 'package:gst_suvidha/utils/swipable_button.dart';
 
 class GSTSearchscreen extends StatefulWidget {
   const GSTSearchscreen({Key? key}) : super(key: key);
@@ -220,7 +219,12 @@ class _GSTSearchscreenState extends State<GSTSearchscreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      apiService(gstInput.text);
+                      if (gstInput.text.isEmpty || gstInput.text.trim() == '') {
+                        validationAlert(
+                            context, 'Please input the correct GST Value');
+                      } else {
+                        apiService(gstInput.text.trim());
+                      }
                     },
                     child: Container(
                         decoration: BoxDecoration(
